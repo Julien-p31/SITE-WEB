@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BILLU - Accueil</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Orbitron', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f5f5, #dcdcdc); /* Dégradé de fond */
+            color: black;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animation des particules */
+        @keyframes moveParticles {
+            0% {
+                transform: translate(0, 0) scale(0.8);
+                opacity: 0.5;
+            }
+            50% {
+                transform: translate(100px, 100px) scale(1);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translate(-100px, -100px) scale(0.8);
+                opacity: 0.5;
+            }
+        }
+
+        /* Particules en fond */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(60, 60, 60, 0.6); /* Gris foncé */
+            animation: moveParticles 5s infinite ease-in-out;
+            opacity: 0.6;
+        }
+
+        /* Configuration de la taille et de la durée des particules */
+        .particle:nth-child(odd) {
+            width: 8px;
+            height: 8px;
+            animation-duration: 6s;
+        }
+
+        .particle:nth-child(even) {
+            width: 12px;
+            height: 12px;
+            animation-duration: 5s;
+        }
+
+        /* Diffusion des particules sur toute la page */
+        .particle:nth-child(1) { top: 5%; left: 15%; animation-delay: 0s; }
+        .particle:nth-child(2) { top: 10%; left: 70%; animation-delay: 0.5s; }
+        .particle:nth-child(3) { top: 30%; left: 50%; animation-delay: 1.5s; }
+        .particle:nth-child(4) { top: 20%; left: 80%; animation-delay: 2s; }
+        .particle:nth-child(5) { top: 45%; left: 20%; animation-delay: 0.3s; }
+        .particle:nth-child(6) { top: 65%; left: 90%; animation-delay: 1s; }
+        .particle:nth-child(7) { top: 50%; left: 10%; animation-delay: 1.7s; }
+        .particle:nth-child(8) { top: 40%; left: 60%; animation-delay: 0.9s; }
+        .particle:nth-child(9) { top: 60%; left: 35%; animation-delay: 2.2s; }
+        .particle:nth-child(10) { top: 80%; left: 5%; animation-delay: 1.4s; }
+        .particle:nth-child(11) { top: 90%; left: 55%; animation-delay: 1.8s; }
+        .particle:nth-child(12) { top: 75%; left: 85%; animation-delay: 0.6s; }
+        .particle:nth-child(13) { top: 10%; left: 90%; animation-delay: 1.1s; }
+        .particle:nth-child(14) { top: 90%; left: 25%; animation-delay: 2.5s; }
+        .particle:nth-child(15) { top: 30%; left: 40%; animation-delay: 1.2s; }
+        .particle:nth-child(16) { top: 60%; left: 75%; animation-delay: 2.7s; }
+        .particle:nth-child(17) { top: 20%; left: 25%; animation-delay: 1.6s; }
+        .particle:nth-child(18) { top: 80%; left: 50%; animation-delay: 2s; }
+
+        header, footer {
+            text-align: center;
+            font-size: 1em;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            color: white;
+            width: 100%;
+            z-index: 10;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 15px 0; /* Augmente la marge pour descendre le menu */
+            margin-top: 10px; /* Ajout pour descendre le menu */
+            z-index: 9;
+        }
+
+        nav a {
+            color: black;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 50px;
+            background: rgba(0, 0, 0, 0.2);
+            transition: transform 0.15s ease-out, background 0.15s ease-out; /* Transition plus rapide */
+            font-size: 0.9em;
+        }
+	
+        nav a.active,
+        nav a:hover {
+            transform: scale(1.1);
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+        }
+
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            width: 100%;
+            margin-top: -30px;
+        }
+
+        /* Animation de rebond pour le texte "BILLU" */
+        @keyframes bounceBillu {
+            0% {
+                transform: translateY(0) scale(1);
+            }
+            30% {
+                transform: translateY(-20px) scale(1.1); /* Monte un peu et grossit */
+            }
+            50% {
+                transform: translateY(0) scale(1); /* Redescend et revient à sa taille */
+            }
+            70% {
+                transform: translateY(-10px) scale(1.05); /* Un petit rebond */
+            }
+            100% {
+                transform: translateY(0) scale(1); /* Retour à la position d'origine */
+            }
+        }
+    /* Animation du texte */
+    @keyframes scrollText {
+        from {
+            top: 100vh;
+        }
+        to {
+            top: -200vh;
+        }
+    }
+
+    .scrolling-text {
+        position: absolute;
+        width: 90%;
+        text-align: center;
+        font-size: 1.3em;
+        white-space: pre-line;
+        top: 100vh;
+        animation: scrollText 150s linear forwards; /* Durée prolongée */
+    }
+    </style>
+</head>
+<body>
+    <!-- Création des particules -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+
+  <iframe id="musicIframe" style="display:none" src="https://www.youtube.com/embed/rdB13lFexNk?autoplay=1&loop=1&playlist=rdB13lFexNk" allow="autoplay"></iframe>
+  
+    <header>
+        BILLU
+    </header>
+    <nav>
+        <a href="index.html" class="active">Accueil</a>
+        <a href="services.html">Services</a>
+        <a href="plan.html">Plan</a>
+        <a href="github.html">GitHub</a>
+        <a href="apropos.html">À propos</a>
+        <a href="http://web.billu.com:5000">Assistance</a>
+        <a href="merci.html">Merci</a>
+    </nav>
+    <div class="center-content">
+        <div class="search-container">
+        </div>
+    </div>
+  <div class="scrolling-text">
+    <b>Yo Capitaine !</b>
+
+Ici l’équipage, réuni sur le pont, le regard tourné vers l’horizon que tu nous as appris à ne jamais craindre.
+
+Cinq mois en mer, cinq mois de tempêtes, de doutes, de combats… et jamais tu n’as lâché la barre, jamais tu n’as abandonné un seul matelot à la dérive. Tu as partagé ton savoir, ton courage et tes histoires, et aujourd’hui, nous voilà enfin face à l’île aux TSSR, prêts à en déterrer le trésor !
+
+On le sait maintenant… Ce trésor, ce n’est pas juste une légende, c’est tout ce que l’on a vécu ensemble. Comme l’a dit un certain matelot :<br>
+<b>"Le One Piece, c'est ça ! C'est l'aventure, les rencontres, le chemin, les batailles parcourues. C'est ça, notre trésor !"</b>
+
+Alors, merci Capitaine ! Merci pour cette traversée incroyable, pour chaque coup de barre dans la tempête, pour chaque éclat de rire qui a chassé la fatigue, pour chaque parole qui a rallumé la flamme quand le doute s’installait.
+
+Aujourd’hui, tu nous laisses sur cette île, mais t’inquiète pas, on saura quoi faire. On va se battre, on va creuser, on va chercher, et on va le trouver ce trésor ! Et quand on le fera, on lèvera un verre en ton honneur.
+
+Bonne route à toi, Capitaine ! Que les vents te portent vers de nouvelles aventures et peut-être, un jour, un nouvel équipage… Mais sache-le : ton pavillon flottera toujours avec nous !
+
+<b>A TRIBORD, MOUSSAILLONS ! TERRE EN VUE !</b>
+
+L’équipage.
+
+🏴‍☠️⚓🔥<br><br>
+    
+    <img src="https://media1.tenor.com/m/TxhtOdLq8AoAAAAd/capitan-jack-the-sparrow-pirates-of-the-caribbean-curse-of-the-black-pearl.gif" alt="Animation" style="max-width: auto; height: auto; margin-bottom: 30px;">
+    
+    <br><br><br><br><br><br><br><br><br><!-- Ajoute de l'espace pour bien voir le message final -->
+    <strong style="font-size: 5em; color: black;">MERCI POUR TOUT REDA !<br>
+      EUHHH CAPITAINE !
+    </strong>
+    </div>
+    <footer>
+        &copy; 2025 BILLU - Tous droits réservés
+    </footer>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const scrollingText = document.querySelector(".scrolling-text");
+    const musicIframe = document.querySelector("iframe");
+    const merciText = document.querySelector("strong");  // Message final "MERCI POUR TOUT REDA! EUH CAPITAINE"
+    let hasStopped = false;
+
+    // Fonction pour stopper la musique et l'animation
+    function stopScrollingAndMusic() {
+        if (!hasStopped) {  // Assure que cela ne s'arrête qu'une seule fois
+            scrollingText.style.animation = "none";  // Arrêter l'animation du texte
+            musicIframe.src = ""; // Arrêter la musique
+            hasStopped = true; // Marquer comme arrêté
+        }
+    }
+
+    // Fonction pour vérifier si le texte "MERCI POUR TOUT REDA! EUH CAPITAINE" est visible
+    function checkIfMerciVisible() {
+        const rect = merciText.getBoundingClientRect();
+
+        // Vérifie si le texte est complètement visible (tout en bas de la fenêtre)
+        if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
+            stopScrollingAndMusic();  // Arrêter l'animation et la musique une fois que le message est visible
+        }
+    }
+
+    // Écouter le défilement de la page
+    window.addEventListener("scroll", checkIfMerciVisible);
+
+    // Vérifier immédiatement si le texte est déjà visible
+    checkIfMerciVisible();
+});
+</script>
+</body>
+</html>
